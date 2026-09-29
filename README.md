@@ -1,12 +1,13 @@
-. querySelector dan querySelectorAll
+1. querySelector dan querySelectorAll
+Penjelasan
 
-Pengertian:
+querySelector() digunakan untuk memilih satu elemen pertama berdasarkan selector seperti id, class, atau tag HTML.
 
-querySelector() → memilih 1 elemen pertama yang sesuai selector.
-querySelectorAll() → memilih semua elemen yang sesuai selector.
+querySelectorAll() digunakan untuk memilih semua elemen yang memiliki selector yang sama.
 
-Contoh kasus perpustakaan:
+Contoh kasus: Pada perpustakaan, kita dapat memilih judul perpustakaan dan semua daftar buku.
 
+Kode
 <h2 id="judul">Daftar Buku</h2>
 
 <ul>
@@ -26,40 +27,38 @@ buku.forEach(item => {
 });
 </script>
 2. innerHTML, textContent, dan innerText
+Penjelasan
 
-Pengertian:
+Ketiganya digunakan untuk mengambil atau mengubah isi suatu elemen HTML.
 
-innerHTML → mengambil/mengubah isi HTML sekaligus tag HTML.
-textContent → mengambil/mengubah seluruh teks.
-innerText → mengambil/mengubah teks yang terlihat di halaman.
+innerHTML → dapat mengubah isi sekaligus menggunakan tag HTML.
+textContent → mengubah atau mengambil seluruh teks di dalam elemen.
+innerText → mengubah atau mengambil teks yang terlihat oleh pengguna.
 
-Contoh:
+Contoh kasus: Menampilkan jumlah buku yang tersedia di perpustakaan.
 
+Kode innerHTML
 <div id="info"></div>
 
 <script>
 const info = document.querySelector("#info");
 
 info.innerHTML = "<b>Buku tersedia: 25</b>";
-
-Hasilnya:
-
-Buku tersedia: 25
-
-Contoh textContent:
-
+</script>
+Kode textContent
 info.textContent = "Buku tersedia: 25";
-
-Contoh innerText:
-
+Kode innerText
 info.innerText = "Buku tersedia: 25";
 3. Manipulasi Attribute dan Style
+Penjelasan
 
-Pengertian:
-Manipulasi attribute digunakan untuk mengubah atribut HTML, sedangkan manipulasi style digunakan untuk mengubah tampilan elemen menggunakan JavaScript.
+Manipulasi attribute digunakan untuk mengubah atribut HTML, seperti src, href, alt, dan lainnya.
 
-Contoh kasus perpustakaan:
+Manipulasi style digunakan untuk mengubah tampilan elemen, seperti ukuran, warna, border, dan sebagainya.
 
+Contoh kasus: Mengubah gambar sampul buku dan mengatur ukurannya.
+
+Kode
 <img id="cover" src="buku-lama.jpg" alt="Buku">
 
 <script>
@@ -75,4 +74,4 @@ cover.style.border = "2px solid black";
 </script>
 Kesimpulan
 
-DOM memungkinkan JavaScript mengambil, mengubah, dan mengatur elemen HTML secara langsung. Dalam kasus perpustakaan, DOM dapat digunakan untuk mengubah daftar buku, informasi buku, gambar sampul, serta tampilan halaman secara dinamis.# Tugas_DOMjs
+DOM memungkinkan JavaScript untuk memilih, mengubah isi, atribut, dan tampilan elemen HTML. Dalam sistem perpustakaan, DOM dapat digunakan untuk mengelola daftar buku dan informasi buku secara dinamis.
