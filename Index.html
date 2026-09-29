@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan</title>
+</head>
+
+<body>
+
+    <h1 id="judul">Daftar Buku</h1>
+
+    <h2>Koleksi Buku</h2>
+
+    <ul>
+        <li class="buku">Laskar Pelangi</li>
+        <li class="buku">Bumi Manusia</li>
+        <li class="buku">Negeri 5 Menara</li>
+    </ul>
+
+    <h2>Informasi Buku</h2>
+    <div id="info"></div>
+
+    <h2>Sampul Buku</h2>
+
+    <img
+        id="cover"
+        src="https://via.placeholder.com/200"
+        alt="Cover Buku"
+    >
+
+    <script>
+
+        // ========================================
+        // 1. querySelector dan querySelectorAll
+        // ========================================
+
+        // Memilih satu elemen
+        const judul = document.querySelector("#judul");
+
+        // Memilih semua elemen dengan class "buku"
+        const buku = document.querySelectorAll(".buku");
+
+        // Mengubah judul
+        judul.textContent = "Koleksi Buku Perpustakaan";
+
+        // Mengubah teks semua daftar buku
+        buku.forEach(item => {
+            item.textContent = "Buku: " + item.textContent;
+        });
+
+
+        // ========================================
+        // 2. innerHTML, textContent, innerText
+        // ========================================
+
+        const info = document.querySelector("#info");
+
+        // innerHTML dapat menggunakan tag HTML
+        info.innerHTML = "<b>Jumlah buku tersedia: 25 buku</b>";
+
+        // Contoh textContent:
+        // info.textContent = "Jumlah buku tersedia: 25 buku";
+
+        // Contoh innerText:
+        // info.innerText = "Jumlah buku tersedia: 25 buku";
+
+
+        // ========================================
+        // 3. Manipulasi Attribute
+        // ========================================
+
+        const cover = document.querySelector("#cover");
+
+        // Mengubah attribute src
+        cover.setAttribute(
+            "src",
+            "https://via.placeholder.com/250"
+        );
+
+        // Mengubah attribute alt
+        cover.setAttribute(
+            "alt",
+            "Sampul Buku Perpustakaan"
+        );
+
+
+        // ========================================
+        // 4. Manipulasi Style
+        // ========================================
+
+        // Mengubah ukuran gambar
+        cover.style.width = "250px";
+
+    </script>
+
+</body>
+</html>
