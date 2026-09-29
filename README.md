@@ -1,5 +1,5 @@
-Penjelasan DOM dengan Kasus Perpustakaan
-1. querySelector dan querySelectorAll
+<h2>Penjelasan DOM dengan Kasus Perpustakaan</h2>
+<h3>1. querySelector dan querySelectorAll</h3>
 
 querySelector adalah metode DOM yang digunakan untuk memilih satu elemen HTML pertama yang sesuai dengan selector tertentu, seperti id, class, atau nama tag.
 
@@ -8,7 +8,7 @@ querySelectorAll digunakan untuk memilih semua elemen HTML yang sesuai dengan se
 Contoh pada perpustakaan:
 querySelector dapat digunakan untuk memilih judul halaman perpustakaan, sedangkan querySelectorAll dapat digunakan untuk memilih seluruh daftar buku.
 
-2. innerHTML, textContent, dan innerText
+<h3>2. innerHTML, textContent, dan innerText</h3>
 
 Ketiga metode ini digunakan untuk mengakses atau mengubah isi dari sebuah elemen HTML.
 
@@ -19,7 +19,7 @@ innerText → digunakan untuk mengubah atau mengambil teks yang terlihat oleh pe
 Contoh pada perpustakaan:
 Ketiganya dapat digunakan untuk menampilkan informasi seperti nama buku, jumlah buku, atau status ketersediaan buku.
 
-3. Manipulasi Attribute dan Style
+<h3>3. Manipulasi Attribute dan Style</h3>
 
 Manipulasi Attribute adalah proses mengubah atribut yang terdapat pada elemen HTML menggunakan JavaScript. Contohnya seperti mengubah src gambar, href link, atau alt pada gambar.
 
