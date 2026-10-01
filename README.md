@@ -27,3 +27,18 @@ Manipulasi Style adalah proses mengubah tampilan elemen HTML menggunakan JavaScr
 
 Contoh pada perpustakaan:
 Attribute dapat digunakan untuk mengganti gambar sampul buku, sedangkan style dapat digunakan untuk mengubah ukuran atau tampilan gambar tersebut.
+
+Berikut penjelasan **teks** untuk poin 4–6 dengan contoh pada **sistem perpustakaan (perpus)**:
+
+### 4. Membuat & Menghapus Elemen
+
+DOM memungkinkan JavaScript untuk **membuat elemen HTML baru dan menghapus elemen yang sudah ada**. Dalam sistem perpustakaan, contohnya ketika admin menambahkan buku baru, JavaScript dapat membuat elemen berupa data buku dan menampilkannya ke daftar. Sebaliknya, ketika sebuah buku dihapus dari data perpustakaan, elemen buku tersebut juga dapat dihapus dari halaman.
+
+### 5. Event Listener: click, input, submit
+
+Event Listener digunakan agar JavaScript dapat **merespons tindakan yang dilakukan pengguna**. `click` digunakan ketika pengguna menekan tombol, misalnya tombol **Tambah Buku**. `input` digunakan ketika pengguna mengetik, misalnya saat mencari judul buku. `submit` digunakan ketika pengguna mengirim formulir, misalnya saat mengisi data buku baru untuk dimasukkan ke daftar perpustakaan.
+
+### 6. Event Bubbling & StopPropagation
+
+**Event Bubbling** adalah kondisi ketika suatu event dari elemen anak dapat diteruskan ke elemen induknya. Contohnya, ketika tombol **Hapus Buku** berada di dalam sebuah elemen daftar buku, klik pada tombol tersebut juga dapat dianggap sebagai klik pada elemen daftar. `stopPropagation()` digunakan untuk **menghentikan penyebaran event tersebut**, sehingga event hanya dijalankan pada elemen yang diinginkan. Dalam sistem perpustakaan, ini berguna agar tombol Hapus tidak sekaligus menjalankan event lain pada kartu atau daftar buku.
+
