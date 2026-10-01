@@ -5,94 +5,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perpustakaan</title>
 </head>
-
 <body>
 
-    <h1 id="judul">Daftar Buku</h1>
+<h1 id="judul">Daftar Buku</h1>
 
-    <h2>Koleksi Buku</h2>
+<h2>Koleksi Buku</h2>
+<ul id="daftarBuku">
+    <li class="buku">Laskar Pelangi <button class="hapus">Hapus</button></li>
+    <li class="buku">Bumi Manusia <button class="hapus">Hapus</button></li>
+    <li class="buku">Negeri 5 Menara <button class="hapus">Hapus</button></li>
+</ul>
 
-    <ul>
-        <li class="buku">Laskar Pelangi</li>
-        <li class="buku">Bumi Manusia</li>
-        <li class="buku">Negeri 5 Menara</li>
-    </ul>
+<h2>Informasi Buku</h2>
+<div id="info"></div>
+<button id="btnHTML">innerHTML</button>
+<button id="btnText">textContent</button>
+<button id="btnInnerText">innerText</button>
 
-    <h2>Informasi Buku</h2>
-    <div id="info"></div>
+<h2>Sampul Buku</h2>
+<img id="cover" src="https://via.placeholder.com/200" alt="Cover Buku">
+<br>
+<button id="ubahCover">Ubah Sampul</button>
 
-    <h2>Sampul Buku</h2>
+<h2>Tambah Buku</h2>
+<input type="text" id="inputBuku" placeholder="Masukkan judul buku">
+<button id="tambahBuku">Tambah Buku</button>
 
-    <img
-        id="cover"
-        src="https://via.placeholder.com/200"
-        alt="Cover Buku"
-    >
+<h2>Cari Buku</h2>
+<input type="text" id="cariBuku" placeholder="Cari judul buku">
+<p id="hasilCari"></p>
 
-    <script>
+<h2>Form Peminjaman</h2>
+<form id="formPeminjaman">
+    <input type="text" id="namaPeminjam" placeholder="Nama peminjam">
+    <input type="text" id="bukuDipinjam" placeholder="Judul buku">
+    <button type="submit">Pinjam Buku</button>
+</form>
 
-        // ========================================
-        // 1. querySelector dan querySelectorAll
-        // ========================================
+<h2>Event Bubbling</h2>
+<div id="kotakInduk">
+    <p>Ini adalah elemen induk.</p>
+    <button id="tombolAnak">Klik Tombol Anak</button>
+    <button id="tombolStop">Klik Dengan stopPropagation</button>
+</div>
+<p id="hasilEvent"></p>
 
-        // Memilih satu elemen
-        const judul = document.querySelector("#judul");
+<script>
 
-        // Memilih semua elemen dengan class "buku"
-        const buku = document.querySelectorAll(".buku");
+// ========================================
+// 1. querySelector dan querySelectorAll
+// ========================================
 
-        // Mengubah judul
-        judul.textContent = "Koleksi Buku Perpustakaan";
+// querySelector() memilih satu elemen
+const judul = document.querySelector("#judul");
 
-        // Mengubah teks semua daftar buku
-        buku.forEach(item => {
-            item.textContent = "Buku: " + item.textContent;
-        });
+// querySelectorAll() memilih semua elemen
+const buku = document.querySelectorAll(".buku");
 
+// Mengubah judul
+judul.textContent = "Koleksi Buku Perpustakaan";
 
-        // ========================================
-        // 2. innerHTML, textContent, innerText
-        // ========================================
+// Mengubah semua nama buku
+buku.forEach(item => {
+    item.textContent = "Buku: " + item.textContent;
+});
 
-        const info = document.querySelector("#info");
+// ========================================
+// 2. innerHTML, textContent, innerText
+// ========================================
 
-        // innerHTML dapat menggunakan tag HTML
-        info.innerHTML = "<b>Jumlah buku tersedia: 25 buku</b>";
+const info = document.querySelector("#info");
 
-        // Contoh textContent:
-        // info.textContent = "Jumlah buku tersedia: 25 buku";
+// innerHTML dapat menggunakan tag HTML
+document.querySelector("#btnHTML").addEventListener("click", () => {
+    info.innerHTML = "<b>Jumlah buku tersedia: 25 buku</b>";
+});
 
-        // Contoh innerText:
-        // info.innerText = "Jumlah buku tersedia: 25 buku";
+// textContent menampilkan teks biasa
+document.querySelector("#btnText").addEventListener("click", () => {
+    info.textContent = "Jumlah buku tersedia: 25 buku";
+});
 
+// innerText menampilkan teks yang terlihat
+document.querySelector("#btnInnerText").addEventListener("click", () => {
+    info.innerText = "Jumlah buku tersedia: 25 buku";
+});
 
-        // ========================================
-        // 3. Manipulasi Attribute
-        // ========================================
+// ========================================
+// 3. Manipulasi Attribute
+// ========================================
 
-        const cover = document.querySelector("#cover");
+const cover = document.querySelector("#cover");
 
-        // Mengubah attribute src
-        cover.setAttribute(
-            "src",
-            "https://via.placeholder.com/250"
-        );
+document.querySelector("#ubahCover").addEventListener("click", () => {
+    // Mengubah attribute src
+    cover.setAttribute("src", "https://via.placeholder.com/250");
 
-        // Mengubah attribute alt
-        cover.setAttribute(
-            "alt",
-            "Sampul Buku Perpustakaan"
-        );
+    // Mengubah attribute alt
+    cover.setAttribute("alt", "Sampul Buku Perpustakaan");
+});
 
+// ========================================
+// 4. Manipulasi Style
+// ========================================
 
-        // ========================================
-        // 4. Manipulasi Style
-        // ========================================
+// Mengubah ukuran gambar
+cover.style.width = "250px";
 
-        // Mengubah ukuran gambar
-        cover.style.width = "250px";
+// ========================================
+// 5. Membuat dan Menghapus Elemen
+// ========================================
 
-    </script>
+const daftarBuku = document.querySelector("#daftarBuku");
+const inputBuku = document.querySelector("#inputBuku");
+
+// Membuat buku baru
+document.querySelector("#tambahBuku").addEventListener("click", () => {
+    const judulBaru = inputBuku.value.trim();
+
+    if (judulBaru === "") {
+        alert("Masukkan judul buku!");
+        return;
+    }
+
+    // Membuat elemen li
+    const bukuBaru = document.createElement("li");
+
+    // Menambahkan class
+    bukuBaru.classList.add("buku");
+
+    // Menambahkan teks
+    bukuBaru.textContent = judulBaru + " ";
+
+    // Membuat tombol hapus
+    const tombolHapus = document.createElement("button");
+    tombolHapus.textContent = "Hapus";
+    tombolHapus.classList.add("hapus");
+
+    // Memasukkan tombol ke li
+    bukuBaru.appendChild(tombolHapus);
+
+    // Memasukkan li ke ul
+    daftarBuku.appendChild(bukuBaru);
+
+    inputBuku.value = "";
+});
+
+// Menghapus buku
+daftarBuku.addEventListener("click", event => {
+    if (event.target.classList.contains("hapus")) {
+        event.target.parentElement.remove();
+    }
+});
+
+// ========================================
+// 6. Event Listener: click, input, submit
+// ========================================
+
+// Event input untuk mencari buku
+const cariBuku = document.querySelector("#cariBuku");
+const hasilCari = document.querySelector("#hasilCari");
+
+cariBuku.addEventListener("input", () => {
+    const keyword = cariBuku.value.toLowerCase();
+    const semuaBuku = document.querySelectorAll(".buku");
+
+    semuaBuku.forEach(item => {
+        if (item.textContent.toLowerCase().includes(keyword)) {
+            item.style.display = "list-item";
+        } else {
+            item.style.display = "none";
+        }
+    });
+
+    hasilCari.textContent = "Pencarian: " + cariBuku.value;
+});
+
+// Event submit
+const formPeminjaman = document.querySelector("#formPeminjaman");
+
+formPeminjaman.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const nama = document.querySelector("#namaPeminjam").value;
+    const bukuPinjam = document.querySelector("#bukuDipinjam").value;
+
+    alert(nama + " meminjam buku " + bukuPinjam);
+});
+
+// ========================================
+// 7. Event Bubbling
+// ========================================
+
+const kotakInduk = document.querySelector("#kotakInduk");
+const hasilEvent = document.querySelector("#hasilEvent");
+
+// Event pada elemen induk
+kotakInduk.addEventListener("click", () => {
+    hasilEvent.textContent += " Event induk dijalankan.";
+});
+
+// Event pada elemen anak
+document.querySelector("#tombolAnak").addEventListener("click", () => {
+    hasilEvent.textContent = "Tombol anak diklik.";
+});
+
+// ========================================
+// 8. stopPropagation()
+// ========================================
+
+document.querySelector("#tombolStop").addEventListener("click", event => {
+    // Menghentikan Event Bubbling
+    event.stopPropagation();
+
+    hasilEvent.textContent =
+        "Tombol diklik dan Event Bubbling dihentikan.";
+});
+
+</script>
 
 </body>
 </html>
