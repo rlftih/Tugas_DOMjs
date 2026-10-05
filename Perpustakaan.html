@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Katalog Buku Perpustakaan</title>
+  
+  <style>
+    /* STYLING DASAR */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* WADAH UTAMA */
+    .wadah-utama {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    /* KOTAK FORM (KIRI) */
+    .kotak-form {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .kotak-form label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .kotak-form input,
+    .kotak-form select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .kotak-form button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .kotak-form button:hover {
+      background: #555;
+    }
+
+    /* KOTAK LIST BUKU (KANAN) */
+    .kotak-list {
+      flex: 1;
+    }
+
+    #input-cari {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* KARTU BUKU */
+    .kartu-buku {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border-left: 5px solid #333;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .kartu-buku h4 {
+      margin: 0 0 10px 0;
+      cursor: pointer;
+    }
+
+    .kartu-buku p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .kartu-buku button {
+      margin-right: 5px;
+      margin-top: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #eee;
+    }
+
+    .kartu-buku button:hover {
+      background: #ddd;
+    }
+
+    /* PESAN ERROR */
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    /* BAGIAN MATERI 7, 8, 9 */
+    .kotak-materi {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .kotak-materi h2 {
+      margin-top: 0;
+    }
+
+    .kotak-materi p {
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+
+    .hasil {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Katalog Perpustakaan</h1>
+  <p>Total Buku: <b id="total-buku">0</b></p>
+
+  <div class="wadah-utama">
+
+    <!-- FORM INPUT BUKU -->
+    <div class="kotak-form">
+      <h3>Tambah Buku Baru</h3>
+      
+      <label>Judul Buku:</label>
+      <input
+        type="text"
+        id="input-judul"
+        placeholder="Contoh: Laut Bercerita"
+      >
+
+      <label>Penulis:</label>
+      <input
+        type="text"
+        id="input-penulis"
+        value="Fatih"
+      >
+
+      <label>Kategori:</label>
+      <select id="input-kategori">
+        <option value="Self Development">Self Development</option>
+        <option value="Bisnis">Bisnis</option>
+        <option value="Novel & Fiksi">Novel & Fiksi</option>
+        <option value="Pemrograman">Pemrograman</option>
+      </select>
+
+      <button id="btn-tambah">Tambah Buku</button>
+
+      <p id="pesan-error" class="error"></p>
+    </div>
+
+    <!-- LIST & PENCARIAN BUKU -->
+    <div class="kotak-list">
+
+      <input
+        type="text"
+        id="input-cari"
+        placeholder="Cari buku atau penulis..."
+      >
+
+      <div id="tempat-buku">
+        <!-- Kartu buku akan muncul di sini melalui JavaScript -->
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- BAGIAN 7, 8, 9 YANG DIMINTA -->
+  <!-- ===================================================== -->
+
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+
+    // =========================================================
+    // 1. DATA BUKU AWAL
+    // =========================================================
+
+    let daftarBuku = [
+      {
+        id: 1,
+        judul: 'Atomic Habits',
+        penulis: 'Fatih',
+        kategori: 'Self Development',
+        dipinjam: false
+      },
+      {
+        id: 2,
+        judul: 'Filosofi Teras',
+        penulis: 'Fatih',
+        kategori: 'Self Development',
+        dipinjam: true
+      },
+      {
+        id: 3,
+        judul: 'Laskar Pelangi',
+        penulis: 'Fatih',
+        kategori: 'Novel & Fiksi',
+        dipinjam: false
+      }
+    ];
+
+
+    // =========================================================
+    // 2. AMBIL ELEMEN DARI HTML
+    // =========================================================
+
+    const tempatBuku = document.getElementById('tempat-buku');
+    const totalBukuText = document.getElementById('total-buku');
+    const inputJudul = document.getElementById('input-judul');
+    const inputPenulis = document.getElementById('input-penulis');
+    const inputKategori = document.getElementById('input-kategori');
+    const btnTambah = document.getElementById('btn-tambah');
+    const inputCari = document.getElementById('input-cari');
+    const pesanError = document.getElementById('pesan-error');
+    const hasilDOM = document.getElementById('hasil-dom');
+
+
+    // =========================================================
+    // 3. FUNGSI TAMPILKAN BUKU
+    // =========================================================
+
+    function tampilkanBuku(data = daftarBuku) {
+
+      // Kosongkan tempat buku terlebih dahulu
+      tempatBuku.innerHTML = '';
+
+      // Update total buku
+      totalBukuText.textContent = daftarBuku.length;
+
+      // Menampilkan setiap buku
+      data.forEach(function(buku, index) {
+
+        const kartu = document.createElement('div');
+
+        kartu.className = 'kartu-buku';
+
+        kartu.innerHTML = `
+          <h4>${index + 1}. ${buku.judul}</h4>
+
+          <p>
+            Penulis:
+            <b>${buku.penulis}</b>
+          </p>
+
+          <p>
+            Kategori:
+            <i>${buku.kategori}</i>
+          </p>
+
+          <p>
+            Status:
+            <b>${buku.dipinjam ? 'Dipinjam' : 'Tersedia'}</b>
+          </p>
+
+          <button onclick="ubahStatus(${buku.id})">
+            ${buku.dipinjam ? 'Kembalikan' : 'Pinjam'}
+          </button>
+
+          <button onclick="hapusBuku(${buku.id})">
+            Hapus
+          </button>
+        `;
+
+        tempatBuku.appendChild(kartu);
+      });
+    }
+
+
+    // =========================================================
+    // 4. TAMBAH BUKU BARU
+    // =========================================================
+
+    btnTambah.addEventListener('click', function() {
+
+      const judul = inputJudul.value.trim();
+      const penulis = inputPenulis.value.trim();
+      const kategori = inputKategori.value;
+
+      // Validasi
+      if (judul === '' || penulis === '') {
+
+        pesanError.textContent =
+          'Judul dan Penulis tidak boleh kosong!';
+
+        return;
+      }
+
+      pesanError.textContent = '';
+
+      // Membuat objek buku baru
+      const bukuBaru = {
+        id: Date.now(),
+        judul: judul,
+        penulis: penulis,
+        kategori: kategori,
+        dipinjam: false
+      };
+
+      // Masukkan buku ke array
+      daftarBuku.push(bukuBaru);
+
+      // Tampilkan ulang
+      tampilkanBuku();
+
+      // Reset form
+      inputJudul.value = '';
+      inputPenulis.value = 'Fatih';
+    });
+
+
+    // =========================================================
+    // 5. PINJAM / KEMBALIKAN BUKU
+    // =========================================================
+
+    function ubahStatus(id) {
+
+      for (let i = 0; i < daftarBuku.length; i++) {
+
+        if (daftarBuku[i].id === id) {
+
+          daftarBuku[i].dipinjam =
+            !daftarBuku[i].dipinjam;
+        }
+      }
+
+      tampilkanBuku();
+    }
+
+
+    // =========================================================
+    // 6. HAPUS BUKU
+    // =========================================================
+
+    function hapusBuku(id) {
+
+      daftarBuku = daftarBuku.filter(function(buku) {
+
+        return buku.id !== id;
+
+      });
+
+      tampilkanBuku();
+    }
+
+
+    // =========================================================
+    // 7. FUNGSI CARI BUKU
+    // =========================================================
+
+    inputCari.addEventListener('keyup', function() {
+
+      const kataKunci =
+        inputCari.value.toLowerCase();
+
+      const hasilCari =
+        daftarBuku.filter(function(buku) {
+
+          return (
+            buku.judul.toLowerCase().includes(kataKunci) ||
+            buku.penulis.toLowerCase().includes(kataKunci)
+          );
+
+        });
+
+      tampilkanBuku(hasilCari);
+    });
+
+
+    // =========================================================
+    // 7. EVENT DELEGATION
+    // =========================================================
+
+    tempatBuku.addEventListener('click', function(event) {
+
+      // Mengecek apakah elemen yang diklik adalah H4
+      if (event.target.tagName === 'H4') {
+
+        // Mengambil parent dari H4
+        const kartu = event.target.parentElement;
+
+        // Menampilkan hasil
+        hasilDOM.textContent =
+          'Event Delegation berhasil. Judul yang diklik: ' +
+          event.target.textContent;
+
+        // Memberikan efek pada kartu
+        kartu.style.backgroundColor = '#e8e8e8';
+      }
+
+    });
+
+
+    // =========================================================
+    // 8. AMBIL DATA DAN VALIDASI - JUDUL
+    // =========================================================
+
+    inputJudul.addEventListener('input', function() {
+
+      const judul =
+        inputJudul.value.trim();
+
+      if (judul === '') {
+
+        pesanError.textContent =
+          'Judul buku harus diisi!';
+
+      } else {
+
+        pesanError.textContent = '';
+      }
+
+    });
+
+
+    // =========================================================
+    // 8. AMBIL DATA DAN VALIDASI - PENULIS
+    // =========================================================
+
+    inputPenulis.addEventListener('input', function() {
+
+      const penulis =
+        inputPenulis.value.trim();
+
+      if (penulis === '') {
+
+        pesanError.textContent =
+          'Nama penulis harus diisi!';
+
+      } else {
+
+        pesanError.textContent = '';
+      }
+
+    });
+
+
+    // =========================================================
+    // 9. DOM TRAVERSAL PARENT DAN CHILDREN
+    // =========================================================
+
+    tempatBuku.addEventListener('dblclick', function(event) {
+
+      // Pastikan yang diklik adalah judul buku
+      if (event.target.tagName === 'H4') {
+
+        // Parent
+        const parentKartu =
+          event.target.parentElement;
+
+        // Children
+        const childrenKartu =
+          parentKartu.children;
+
+        hasilDOM.innerHTML = `
+          <b>DOM Traversal:</b><br>
+          Elemen yang diklik: ${event.target.tagName}<br>
+          Parent: ${parentKartu.className}<br>
+          Jumlah Children: ${childrenKartu.length}
+        `;
+      }
+
+    });
+
+
+    // =========================================================
+    // MENAMPILKAN DATA PERTAMA KALI
+    // =========================================================
+
+    tampilkanBuku();
+
+  </script>
+
+</body>
+</html>
