@@ -42,3 +42,27 @@ Event Listener digunakan agar JavaScript dapat **merespons tindakan yang dilakuk
 
 **Event Bubbling** adalah kondisi ketika suatu event dari elemen anak dapat diteruskan ke elemen induknya. Contohnya, ketika tombol **Hapus Buku** berada di dalam sebuah elemen daftar buku, klik pada tombol tersebut juga dapat dianggap sebagai klik pada elemen daftar. `stopPropagation()` digunakan untuk **menghentikan penyebaran event tersebut**, sehingga event hanya dijalankan pada elemen yang diinginkan. Dalam sistem perpustakaan, ini berguna agar tombol Hapus tidak sekaligus menjalankan event lain pada kartu atau daftar buku.
 
+### 7. Event Delegation
+
+Event Delegation adalah teknik dalam JavaScript untuk menangani event dari beberapa elemen anak melalui satu elemen induk atau parent. Teknik ini memanfaatkan Event Bubbling, sehingga kita tidak perlu memberikan event listener satu per satu pada setiap elemen.
+
+Contoh pada perpustakaan:
+Event Delegation dapat digunakan pada daftar buku untuk menangani tombol seperti Pinjam, Kembalikan, atau Hapus yang berada di dalam setiap kartu buku. Dengan begitu, satu event listener pada elemen daftar buku dapat menangani event dari seluruh tombol yang ada di dalamnya.
+
+### 8. Ambil Data dan Validasi
+
+Ambil Data dan Validasi adalah proses mengambil data yang dimasukkan pengguna dari elemen HTML, kemudian memeriksa apakah data tersebut sudah sesuai sebelum diproses.
+
+Data dari input dapat diambil menggunakan .value. Setelah data diambil, JavaScript dapat melakukan validasi, misalnya memeriksa apakah input masih kosong atau sudah diisi.
+
+Contoh pada perpustakaan:
+Ketika admin ingin menambahkan buku, JavaScript dapat mengambil data judul buku, penulis, dan kategori dari form. Sebelum buku ditambahkan ke daftar, sistem memeriksa apakah judul dan penulis sudah diisi. Jika masih kosong, sistem akan menampilkan pesan kesalahan agar data yang dimasukkan lengkap.
+
+### 9. DOM Traversal Parent dan Children
+
+DOM Traversal adalah proses berpindah atau mencari hubungan antara elemen-elemen yang ada di dalam struktur DOM. Dengan DOM Traversal, kita dapat menemukan elemen parent (induk) maupun children (anak) dari suatu elemen.
+
+parentElement digunakan untuk mendapatkan elemen induk dari suatu elemen, sedangkan children digunakan untuk mendapatkan elemen-elemen anak yang berada di dalam sebuah elemen.
+
+Contoh pada perpustakaan:
+Pada sebuah kartu buku, elemen judul, penulis, kategori, status, dan tombol merupakan children dari kartu buku. Kartu buku tersebut menjadi parent bagi elemen-elemen tersebut. DOM Traversal dapat digunakan untuk menemukan kartu buku tertentu ketika pengguna berinteraksi dengan salah satu elemen di dalamnya.
